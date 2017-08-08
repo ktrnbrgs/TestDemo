@@ -1,0 +1,78 @@
+<html>
+	<head>
+	<SCRIPT LANGUAGE = "Javascript">
+	</SCRIPT>
+	</head>
+	<body>
+	<form name="" method="post" action="" style="width: 350px">
+	<fieldset style="background-color:antiquewhite;"">
+		<legend> Welcome to your account! </legend>
+		<table width="250px" border = "1">
+		<tr>
+			<td valign="top">
+				<input type="button" name="deposit" value= "Deposit" style="height: 30px;width:300px" onclick = "Deposit();">
+			</td>
+		</tr>
+		<tr>
+		<td valign="top">
+			<input  type="button" name="withdraw" value = "Withdraw" style="height: 30px;width:300px" onclick = "Withdraw();">
+		</td>
+		</tr>
+		<tr>
+		<td valign="top">
+			<input  type="button" name="balance" value = "Balance Inquiry" style="height: 30px;width:300px">
+		</td>
+		</tr>
+		<tr>
+		<td valign="top">
+			<input  type="text" id= "amnt" name="amnt" style="height: 20px;width:300px">
+		</td>
+		</tr>
+		<tr>
+		<td valign="top">
+			<input  type="button" name="logout" value = "Log Out" style="height: 20px;width:150px">
+		</td>
+		</tr>
+	</table>
+	<SCRIPT>
+		var totalMoney;
+		
+		function balance() {
+			
+		}
+	
+		function checkAccount(amnt) {
+			if(amnt < totalMoney) {
+				alert("You can't withdraw unless you will have a service fee!");
+			}
+			else {
+				totalMoney-=amnt;
+			}
+			return totalMoney;
+		}
+		
+		function Deposit() {
+				var amnt = document.getElementById('amnt').value;
+				if(amnt == "") {
+					alert ("Input Deposit Amount!");
+				}
+				else {
+					var totalMoney = 0 + parseInt(amnt);
+					alert("Deposit Money is: " + totalMoney);
+				}
+		}
+		
+		function Withdraw() {
+			var amnt = document.getElementById('amnt').value;
+			if(amnt == "") {
+				alert("Please Input Withdraw Amount!");
+			}
+			checkAccount(amnt);
+			var totalMoney = totalMoney - parseInt(amnt);
+			alert("Withdraw Money is: " + totalMoney);
+		}
+	</SCRIPT>
+	</fieldset>
+	</form>
+	</body>
+</html>

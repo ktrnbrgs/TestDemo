@@ -1,6 +1,5 @@
 package servletPackage;
 
-import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,18 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TestServlet1
+ * Servlet implementation class BankServlet
  */
-@WebServlet("/TestServlet1")
-public class TestServlet1 extends HttpServlet {
+@WebServlet("/BankServlet")
+public class BankServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public TestServlet1() {
+    public BankServlet() {
+        super();
         // TODO Auto-generated constructor stub
-    	
     }
 
 	/**
@@ -28,9 +27,7 @@ public class TestServlet1 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.getRequestDispatcher("/WEB-INF/newFile.html").forward(request, response);
-		
+		request.getRequestDispatcher("/WEB-INF/banking.html").forward(request, response);
 	}
 
 	/**
