@@ -1,11 +1,11 @@
 <html>
 	<head>
-	<SCRIPT LANGUAGE = "Javascript">
+	<SCRIPT language = "Javascript">
 	</SCRIPT>
 	</head>
 	<body>
 	<form name="" method="post" action="" style="width: 350px">
-	<fieldset style="background-color:antiquewhite;"">
+	<fieldset style="background-color:antiquewhite;">
 		<legend> Welcome to your account! </legend>
 		<table width="250px" border = "1">
 		<tr>
@@ -20,7 +20,12 @@
 		</tr>
 		<tr>
 		<td valign="top">
-			<input  type="button" name="balance" value = "Balance Inquiry" style="height: 30px;width:300px">
+			<input  type="button" name="balance" value = "Balance Inquiry" style="height: 30px;width:300px" onclick = "Balance()">
+		</td>
+		</tr>
+		<tr>
+		<td valign="top">
+			<label>Input amount to DEPOSIT OR WITHDRAW</label>
 		</td>
 		</tr>
 		<tr>
@@ -30,46 +35,81 @@
 		</tr>
 		<tr>
 		<td valign="top">
-			<input  type="button" name="logout" value = "Log Out" style="height: 20px;width:150px">
+			<input  type="button" name="clear" value = "Clear" style="height: 20px;width:150px" onclick="Clear()">
 		</td>
 		</tr>
 	</table>
+	<table>
+		<tr>
+			<td>
+			</td>
+		</tr>
+	</table>
 	<SCRIPT>
-		var totalMoney;
 		
-		function balance() {
-			
+		var totalMoney = 0.00;
+		var fee = 50.00;
+		
+		function Clear() {
+			var amnt = document.getElementById('amnt').value
+			if(amnt != ""){
+				document.getElementById('amnt').value = "";
+			}
+		}
+		
+		function Balance() {
+			var amnt = document.getElementById('amnt').value
+			var total2 = CheckAccount();
+			if(total2 < 0){
+				alert("Insufficient Funds!");
+			}
+			else{
+				alert("Total Amount: " + totalMoney);
+			}
 		}
 	
-		function checkAccount(amnt) {
-			if(amnt < totalMoney) {
-				alert("You can't withdraw unless you will have a service fee!");
-			}
-			else {
-				totalMoney-=amnt;
-			}
+		function CheckAccount() {
 			return totalMoney;
 		}
 		
 		function Deposit() {
 				var amnt = document.getElementById('amnt').value;
-				if(amnt == "") {
-					alert ("Input Deposit Amount!");
+				var letters = /^[a-zA-Z0-9\s]*$/; 
+				if(amnt == "" || amnt.match(letters)) {
+					alert ("Please Input Deposit Amount!");
 				}
 				else {
-					var totalMoney = 0 + parseInt(amnt);
-					alert("Deposit Money is: " + totalMoney);
+					var total = CheckAccount(parseInt(amnt));
+					totalMoney = total + parseInt(amnt);
+					alert("Deposit Money is: " + amnt);
 				}
 		}
 		
+		function ServiceFee(fee){
+			totalMoney = totalMoney - fee;
+			return totalMoney;
+		}
+		
 		function Withdraw() {
+			var letters = /^[a-zA-Z0-9\s]*$/; 
 			var amnt = document.getElementById('amnt').value;
-			if(amnt == "") {
+			if(amnt == "" || amnt.match(letters)) {
 				alert("Please Input Withdraw Amount!");
 			}
-			checkAccount(amnt);
-			var totalMoney = totalMoney - parseInt(amnt);
-			alert("Withdraw Money is: " + totalMoney);
+			else{
+				var total1 = CheckAccount(parseInt(amnt));
+				totalMoney = total1 - parseInt(amnt);
+				if(totalMoney < 0) {
+					if(confirm("You can't withdraw unless a service fee will be accompanied! Service Fee of 50 dollars") == true) {
+						//alert("Withdraw Money is: " + amnt);
+						var serFee = ServiceFee(fee);
+						alert("Withdraw Money is: " + amnt + "\n" + "Total Credit: " + serFee);
+					}
+				}	
+				else {
+					alert("Withdraw amount is: " + amnt);
+				}
+			}
 		}
 	</SCRIPT>
 	</fieldset>
