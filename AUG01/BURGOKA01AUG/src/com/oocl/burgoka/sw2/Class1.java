@@ -1,4 +1,4 @@
-package com.oocl.burgoka.sw1;
+package com.oocl.burgoka.sw2;
 
 
 public class Class1 {
